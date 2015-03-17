@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT competiton (problem+, startDate, endDate)>
+<!ELEMENT problem (id, difficulty, name, description)>
+<!ELEMENT id (#PCDATA)>
+<!ELEMENT difficulty (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT startDate (#PCDATA)>
+<!ELEMENT endDate (#PCDATA)>
