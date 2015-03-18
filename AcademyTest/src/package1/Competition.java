@@ -8,21 +8,30 @@ import java.util.Calendar;
 import java.util.ArrayList;
 
 public class Competition {
+
 	public Competition() {
 		super();
 	}
 
-	public Competition(ArrayList<Problem> problems,
-			Calendar startTime, Calendar endTime) {
+	public Competition(ArrayList<Problem> problems, Calendar startTime,
+			Calendar endTime) {
 		this.problems = problems;
-		this.startDate = startTime;
-		this.startDate = endTime;
+		this.startTime = startTime;
+		this.endTime = endTime;
 	}
 
 	public Competition(Calendar startTime, Calendar endTime) {
 		this.problems = new ArrayList<Problem>();
-		this.startDate = startTime;
-		this.startDate = endTime;
+		this.startTime = startTime;
+		this.endTime = endTime;
+	}
+
+	@Override
+	public String toString(){
+		DateFormat df = new SimpleDateFormat("HH mm DD MM yyyy");
+		String start = df.format(startTime.getTime());
+		String end = df.format(endTime.getTime());
+		return ( start+ " " + end+ " " + problems.toString());
 	}
 
 	/**
@@ -61,22 +70,22 @@ public class Competition {
 	}
 
 	public Calendar getStartTime() {
-		return startDate;
+		return startTime;
 	}
 
 	public void setStartTime(Calendar start) {
-		this.startDate = start;
+		this.startTime = start;
 	}
 
 	public Calendar getEndTime() {
-		return endDate;
+		return endTime;
 	}
 
 	public void setEndTime(Calendar end) {
-		this.endDate = end;
+		this.endTime = end;
 	}
 
 	private ArrayList<Problem> problems;
-	private Calendar startDate;
-	private Calendar endDate;
+	private Calendar startTime;
+	private Calendar endTime;
 }

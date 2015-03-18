@@ -13,13 +13,27 @@ public class Problem {
 
 	@Override
 	public String toString() {
-		return id + " " + difficulty + " " + name + " " + description;
+		return id + " " + this.getDifficulty() + " " + name + " " + description;
 	}
 
-	public Problem(String difficulty, String name, String description) {
+	public Problem(String diff, String name, String description) {
 		currentId++;
 		this.id = currentId;
-		this.setDifficulty(difficulty);
+		diff = diff.toUpperCase();
+
+
+		if (diff.contains("EASY")) {
+			this.difficulty = Difficulty.EASY;
+		}
+		if (diff.contains("MEDIUM")) {
+
+			this.difficulty = Difficulty.MEDIUM;
+		}
+		if (diff.contains("HARD")) {
+
+			this.difficulty = Difficulty.HARD;
+		}
+
 		this.name = name;
 		this.description = description;
 	}
@@ -34,23 +48,18 @@ public class Problem {
 			return "Easy";
 		case MEDIUM:
 			return "Medium";
-		case HARD:
-			return "Hard";
 		default:
-			return "";
+			return "Hard";
 		}
 	}
 
-	public void setDifficulty(String difficulty) {
-		switch (difficulty.toUpperCase()) {
-		case "EASY":
+	public void setDifficulty(String diff) {
+		if (diff.toUpperCase() == "EASY") {
 			this.difficulty = Difficulty.EASY;
-		case "MEDIUM":
+		} else if (diff.toUpperCase() == "MEDIUM") {
 			this.difficulty = Difficulty.MEDIUM;
-		case "HARD":
+		} else if (diff.toUpperCase() == "HARD") {
 			this.difficulty = Difficulty.HARD;
-		default:
-
 		}
 	}
 
