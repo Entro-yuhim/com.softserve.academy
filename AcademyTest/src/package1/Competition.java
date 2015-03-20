@@ -7,31 +7,39 @@ import java.util.Date;
 import java.util.Calendar;
 import java.util.ArrayList;
 
+//TODO: Change start&endTime to Date
+
 public class Competition {
 
 	public Competition() {
 		super();
 	}
 
-	public Competition(ArrayList<Problem> problems, Calendar startTime,
-			Calendar endTime) {
+	public Competition(ArrayList<Problem> problems, Date startDate, Date endDate) {
 		this.problems = problems;
-		this.startTime = startTime;
-		this.endTime = endTime;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	public Competition(int id, ArrayList<Problem> problems, Date startDate, Date endDate) {
+		this.id = id;
+		this.problems = problems;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
-	public Competition(Calendar startTime, Calendar endTime) {
+	public Competition(Date startDate, Date endDate) {
 		this.problems = new ArrayList<Problem>();
-		this.startTime = startTime;
-		this.endTime = endTime;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
+	// Debug toString implementation
 	@Override
-	public String toString(){
+	public String toString() {
 		DateFormat df = new SimpleDateFormat("HH mm DD MM yyyy");
-		String start = df.format(startTime.getTime());
-		String end = df.format(endTime.getTime());
-		return ( start+ " " + end+ " " + problems.toString());
+		String start = df.format(startDate);
+		String end = df.format(endDate);
+		return (start + " " + end + " " + problems.toString());
 	}
 
 	/**
@@ -48,7 +56,7 @@ public class Competition {
 	 * Remove problem from the competition
 	 * 
 	 * @param problem
-	 *            problem removed from competition
+	 *            problem removed from competition??
 	 */
 	public boolean removeProblem(Problem prob) {
 		int i = 0;
@@ -69,23 +77,32 @@ public class Competition {
 		this.problems = prob;
 	}
 
-	public Calendar getStartTime() {
-		return startTime;
+	public Date getStartTime() {
+		return startDate;
 	}
 
-	public void setStartTime(Calendar start) {
-		this.startTime = start;
+	public void setStartTime(Date start) {
+		this.startDate = start;
 	}
 
-	public Calendar getEndTime() {
-		return endTime;
+	public Date getEndTime() {
+		return endDate;
 	}
 
-	public void setEndTime(Calendar end) {
-		this.endTime = end;
+	public void setEndTime(Date end) {
+		this.endDate = end;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	private ArrayList<Problem> problems;
-	private Calendar startTime;
-	private Calendar endTime;
+	private Date startDate;
+	private Date endDate;
+	private int id;
 }
