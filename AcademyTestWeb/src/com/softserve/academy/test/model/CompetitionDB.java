@@ -1,4 +1,4 @@
-package package1;
+package com.softserve.academy.test.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,13 +13,13 @@ import java.util.Date;
 
 public class CompetitionDB {
 	private static CompetitionDB Instance;
-	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_URL = "jdbc:mysql://localhost/AcademyTest";
-	private static final String USER = "root";
-	private static final String PASS = "root";
-	private static final String COMPETITION_SQL = "competitions";
-	private static final String PROBLEMS_SQL = "problems";
-	private static final String COMPETITION_ARRAY_SQL = "CompetitionUtil";
+	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	static final String DB_URL = "jdbc:mysql://localhost/AcademyTest";
+	static final String USER = "root";
+	static final String PASS = "root";
+	static final String COMPETITION_SQL = "competitions";
+	static final String PROBLEMS_SQL = "problems";
+	static final String COMPETITION_ARRAY_SQL = "CompetitionUtil";
 	private Connection conn = null;
 	private DateFormat df = new SimpleDateFormat("yyyy-MM-DD HH:mm:ss");
 
@@ -79,18 +79,39 @@ public class CompetitionDB {
 	public void insertProblem(Problem problem) {
 	}
 
+	public ArrayList<Competition> readAllCompetitions() {
+		ArrayList<Competition> competitions = new ArrayList<Competition>();
+		try {
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Statement stat = conn.createStatement();
+			String competitionQuery = "SELECT c.CompetitionID, c.startDate, c.endDate FROM academytest."
+					+ COMPETITION_SQL + " c;";
+			ResultSet queryResult = stat.executeQuery(competitionQuery);
+			while(queryResult.next()){
+				int id = queryResult.getInt(1);
+				Date startDate = queryResult.getTimestamp(2);
+				Date endDate = queryResult.getTimestamp(2);
+				competitions.add(new Competition(id, startDate, endDate));
+			}
+			queryResult.close();
+			conn.close();
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		} finally {
+			return competitions;
+		}
+	}
+
 	public Competition readFromDB(int CompetitionID) {
 
 		Competition competition = null;
 		try {
-			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			Statement stat = conn.createStatement();
 			String competitionQuery = "Select c.competitionid, c.startDate, c.endDate FROM "
 					+ COMPETITION_SQL
 					+ " c WHERE c.competitionId = "
 					+ CompetitionID;
-			System.out.println(competitionQuery);
 			ResultSet queryResult = stat.executeQuery(competitionQuery);
 
 			if (queryResult.wasNull()) {
@@ -111,8 +132,6 @@ public class CompetitionDB {
 
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
-		} catch (ClassNotFoundException cnfe) {
-			cnfe.printStackTrace();
 		} finally {
 			return competition;
 		}

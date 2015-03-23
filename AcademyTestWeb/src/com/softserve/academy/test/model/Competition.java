@@ -1,4 +1,4 @@
-package package1;
+package com.softserve.academy.test.model;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -7,9 +7,10 @@ import java.util.Date;
 import java.util.Calendar;
 import java.util.ArrayList;
 
+//TODO: Change start&endTime to Date
 
 public class Competition {
-	
+
 	private ArrayList<Problem> problems;
 	private Date startDate;
 	private Date endDate;
@@ -18,7 +19,7 @@ public class Competition {
 	public Competition() {
 		super();
 	}
-	
+
 	public Competition(ArrayList<Problem> problems, Date startDate, Date endDate) {
 		this.problems = problems;
 		this.startDate = startDate;
@@ -29,6 +30,13 @@ public class Competition {
 			Date endDate) {
 		this.id = id;
 		this.problems = problems;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	public Competition(int id, Date startDate,
+			Date endDate) {
+		this.id = id;
+		this.problems = new ArrayList<Problem>();
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}

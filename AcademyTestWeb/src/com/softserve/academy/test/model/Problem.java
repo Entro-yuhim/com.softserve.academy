@@ -1,4 +1,4 @@
-package package1;
+package com.softserve.academy.test.model;
 
 public class Problem {
 	private int id;
@@ -77,7 +77,7 @@ public class Problem {
 			return "Hard";
 		}
 	}
-	
+
 	public void setDifficulty(Difficulty difficulty) {
 		this.difficulty = difficulty;
 	}

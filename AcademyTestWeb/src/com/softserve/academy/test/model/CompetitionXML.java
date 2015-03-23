@@ -1,4 +1,4 @@
-package package1;
+package com.softserve.academy.test.model;
 
 import java.io.File;
 import java.io.FileInputStream;
