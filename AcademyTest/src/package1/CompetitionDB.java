@@ -135,9 +135,9 @@ public class CompetitionDB {
 				problems = new ArrayList<Problem>();
 				while (problemResultSet.next()) {
 					int problemId = problemResultSet.getInt(1);
-					String difficulty = problemResultSet.getString(2);
-					String name = problemResultSet.getString(3);
-					String description = problemResultSet.getString(4);
+					String difficulty = problemResultSet.getString(4);
+					String name = problemResultSet.getString(2);
+					String description = problemResultSet.getString(3);
 					Problem problem = new Problem(problemId, difficulty, name,
 							description);
 					problems.add(problem);

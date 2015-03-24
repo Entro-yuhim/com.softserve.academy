@@ -20,11 +20,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/ProcessQuery")
 public class ProcessQuery extends HttpServlet {
-	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost/AcademyTest";
-	static final String USER = "root";
-	static final String PASS = "root";
 	private static final long serialVersionUID = 1L;
+	private boolean SHOWING_COMPETITIONS;
+	private boolean SHOWING_PROBLEMS;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -53,19 +51,42 @@ public class ProcessQuery extends HttpServlet {
 		// System.out.println("Class not found exception");
 		// clnfe.printStackTrace();
 		// }
-//		String query = request.getParameter("query");
-		CompetitionDB cbd = CompetitionDB.getInstance();
-//		System.out.println(cbd);
-		ArrayList<Competition> c = cbd.readAllCompetitions();
-//		System.out.println(c);
-		request.setAttribute("response", c);
-		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
-		rq.forward(request, response);
+		// String query = request.getParameter("query");
+		String action = request.getParameter("action");
+		if ("Get competitions".equals(action)) {
+			showCompetitions(request, response);
+			SHOWING_COMPETITIONS = true;
+			SHOWING_PROBLEMS = false;
+		}
+		if ("Edit competition".equals(action)) {
+			showProblems(request, response);
+			SHOWING_COMPETITIONS = false;
+			SHOWING_PROBLEMS = true;
+		}
 
 	}
+
 	// public static void main(String[] args){
 	// CompetitionDB cbd = CompetitionDB.getInstance();
 	// Competition competition = cbd.readFromDB(15);
 	//
 	// }
+	private static void showCompetitions(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		CompetitionDB cbd = CompetitionDB.getInstance();
+		ArrayList<Competition> c = cbd.readAllCompetitions();
+		request.setAttribute("response", c);
+		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
+		rq.forward(request, response);
+	}
+
+	private static void showProblems(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		CompetitionDB cdb = CompetitionDB.getInstance();
+		Competition comp = cdb.readFromDB(id);
+		request.setAttribute("response", comp);
+		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
+		rq.forward(request, response);
+	}
 }
