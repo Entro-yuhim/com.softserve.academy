@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ProcessQuery
  */
-@WebServlet("/ProcessQuery")
+@WebServlet("/GetCompetitions")
 public class ProcessQuery extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private boolean SHOWING_COMPETITIONS;
@@ -52,18 +52,7 @@ public class ProcessQuery extends HttpServlet {
 		// clnfe.printStackTrace();
 		// }
 		// String query = request.getParameter("query");
-		String action = request.getParameter("action");
-		if ("Get competitions".equals(action)) {
-			showCompetitions(request, response);
-			SHOWING_COMPETITIONS = true;
-			SHOWING_PROBLEMS = false;
-		}
-		if ("Edit competition".equals(action)) {
-			showProblems(request, response);
-			SHOWING_COMPETITIONS = false;
-			SHOWING_PROBLEMS = true;
-		}
-
+		showCompetitions(request, response);
 	}
 
 	// public static void main(String[] args){
@@ -76,17 +65,8 @@ public class ProcessQuery extends HttpServlet {
 		CompetitionDB cbd = CompetitionDB.getInstance();
 		ArrayList<Competition> c = cbd.readAllCompetitions();
 		request.setAttribute("response", c);
-		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
+		RequestDispatcher rq = request.getRequestDispatcher("competitions.jsp");
 		rq.forward(request, response);
 	}
 
-	private static void showProblems(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		CompetitionDB cdb = CompetitionDB.getInstance();
-		Competition comp = cdb.readFromDB(id);
-		request.setAttribute("response", comp);
-		RequestDispatcher rq = request.getRequestDispatcher("index.jsp");
-		rq.forward(request, response);
-	}
 }

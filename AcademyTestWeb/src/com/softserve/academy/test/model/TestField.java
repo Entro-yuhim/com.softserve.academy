@@ -28,8 +28,8 @@
 //		//System.out.println(c);
 //		//new CompetitionDB().writeToDB(c);
 //		CompetitionDB cdb = CompetitionDB.getInstance();
-//		Competition c = cdb.readFromDB(15);
-//		System.out.println(c);
+//		Problem p = cdb.readProblemById(1);
+//		System.out.println(p);
 //
 //	}
 //

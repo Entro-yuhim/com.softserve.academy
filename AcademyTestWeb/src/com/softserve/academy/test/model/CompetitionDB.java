@@ -39,6 +39,64 @@ public class CompetitionDB {
 		return Instance;
 	}
 
+	public void updateProblem(Problem p) {
+		try {
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			String updateQuery = "UPDATE " + PROBLEMS_SQL
+					+ " SET problemname = '" + p.getName()
+					+ "', problemdescription = '" + p.getDescription()
+					+ "', difficulty = '" + p.getDiffuclty()
+					+ "' WHERE problemid = " + p.getId();
+
+			Statement stat = conn.createStatement();
+			stat.executeUpdate(updateQuery);
+			stat.close();
+			conn.close();
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+	}
+
+	public void removeProblemFromCompetitionById(int problemId,
+			int competitionId) {
+		try {
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			String updateQuery = "DELETE FROM " + COMPETITION_ARRAY_SQL
+					+ " WHERE competitionId =" + competitionId
+					+ " AND problemId =" + problemId;
+			Statement stat = conn.createStatement();
+			stat.executeUpdate(updateQuery);
+			stat.close();
+			conn.close();
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+	}
+
+	public void removeProblem(int id) {
+	}
+
+	public Problem readProblemById(int taskId) {
+		Problem problem = null;
+		try {
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Statement stat = conn.createStatement();
+			String problemsQuery = "select p.problemId, p.problemname, p.problemdescription, p.difficulty from "
+					+ PROBLEMS_SQL + " p WHERE p.problemId=" + taskId;
+			ResultSet problemResultSet = stat.executeQuery(problemsQuery);
+			problemResultSet.next();
+			int problemId = problemResultSet.getInt(1);
+			String difficulty = problemResultSet.getString(4);
+			String name = problemResultSet.getString(2);
+			String description = problemResultSet.getString(3);
+			problem = new Problem(problemId, difficulty, name, description);
+
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		return problem;
+	}
+
 	public void writeToDB(Competition competition) {
 		try {
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -87,10 +145,10 @@ public class CompetitionDB {
 			String competitionQuery = "SELECT c.CompetitionID, c.startDate, c.endDate FROM academytest."
 					+ COMPETITION_SQL + " c;";
 			ResultSet queryResult = stat.executeQuery(competitionQuery);
-			while(queryResult.next()){
+			while (queryResult.next()) {
 				int id = queryResult.getInt(1);
 				Date startDate = queryResult.getTimestamp(2);
-				Date endDate = queryResult.getTimestamp(2);
+				Date endDate = queryResult.getTimestamp(3);
 				competitions.add(new Competition(id, startDate, endDate));
 			}
 			queryResult.close();
@@ -154,9 +212,9 @@ public class CompetitionDB {
 				problems = new ArrayList<Problem>();
 				while (problemResultSet.next()) {
 					int problemId = problemResultSet.getInt(1);
-					String difficulty = problemResultSet.getString(2);
-					String name = problemResultSet.getString(3);
-					String description = problemResultSet.getString(4);
+					String difficulty = problemResultSet.getString(4);
+					String name = problemResultSet.getString(2);
+					String description = problemResultSet.getString(3);
 					Problem problem = new Problem(problemId, difficulty, name,
 							description);
 					problems.add(problem);
