@@ -1,15 +1,43 @@
-package com.softserve.academy.test.model;
+package com.softserve.academy.test.model.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Entity;
+
+@Entity
+@Table(name = "problems")
 public class Problem {
+	
+	@Id
+	@GeneratedValue
+	@Column(name = "problemId", unique = true, nullable = false)
 	private int id;
-	private static int currentId = 0;
+	@ManyToMany(
+			fetch = FetchType.LAZY,
+			mappedBy="problems",
+			targetEntity=Competition.class
+			)
+	private List<Problem> problems = new ArrayList<Problem>();
+	
+	
+	@Column(name = "difficulty", nullable = false)
 	private Difficulty difficulty;
 
 	private enum Difficulty {
 		EASY, MEDIUM, HARD
 	}
 
+	@Column(name = "problemName", nullable = false)
 	private String name;
+	
+	@Column(name = "problemDescription", nullable = false)
 	private String description;
 
 	public Problem() {
@@ -30,16 +58,13 @@ public class Problem {
 	}
 
 	public Problem(String difficultyName, String name, String description) {
-		currentId++;
-		this.id = currentId;
 		this.difficulty = resolveDifficulty(difficultyName);
 		this.name = name;
 		this.description = description;
 	}
-	public Problem(int id, String difficultyName, String name, String description) {
-		if (currentId<id){
-			currentId = id;
-		}
+
+	public Problem(int id, String difficultyName, String name,
+			String description) {
 		this.id = id;
 		this.difficulty = resolveDifficulty(difficultyName);
 		this.name = name;
@@ -53,9 +78,6 @@ public class Problem {
 	 *            of the problem(gotten somewhere. Anywhere)
 	 */
 	public void setId(int id) {
-		if (currentId < id) {
-			currentId = id;
-		}
 		this.id = id;
 	}
 
@@ -112,5 +134,13 @@ public class Problem {
 			return Difficulty.HARD;
 		}
 
+	}
+
+	public List<Problem> getProblems() {
+		return problems;
+	}
+
+	public void setProblems(ArrayList<Problem> problems) {
+		this.problems = problems;
 	}
 }

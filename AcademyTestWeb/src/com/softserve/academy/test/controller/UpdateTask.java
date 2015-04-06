@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.softserve.academy.test.model.CompetitionDB;
-import com.softserve.academy.test.model.Problem;
+import com.softserve.academy.test.model.entity.Problem;
 
 /**
  * Servlet implementation class UpdateTask

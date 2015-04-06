@@ -1,4 +1,4 @@
-package com.softserve.academy.test.model;
+package com.softserve.academy.test.model.entity;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -6,15 +6,43 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.ArrayList;
+import java.util.List;
 
-//TODO: Change start&endTime to Date
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Entity;
 
+@Entity
+@Table(name = "competitions")
 public class Competition {
 
-	private ArrayList<Problem> problems;
-	private Date startDate;
-	private Date endDate;
+	@Id
+	@GeneratedValue
+	@Column(name = "CompetitionId", unique = true, nullable = false)
 	private int id;
+	@Column(name = "startDate")
+	private Date startDate;
+	@Column(name = "endDate")
+	private Date endDate;
+	
+	 
+	@ManyToMany(
+			targetEntity=com.softserve.academy.test.model.entity.Problem.class,
+			fetch = FetchType.LAZY, cascade = CascadeType.ALL
+	)
+	@JoinTable(
+			name = "CompetitionUtil", 
+			joinColumns = { @JoinColumn(name = "CompetitionId", nullable = false, updatable = false) }, 
+			inverseJoinColumns = { @JoinColumn(name = "problemId", nullable = false, updatable = false) }
+		)
+	private List<Problem> problems;
 
 	public Competition() {
 		super();
@@ -33,8 +61,8 @@ public class Competition {
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
-	public Competition(int id, Date startDate,
-			Date endDate) {
+
+	public Competition(int id, Date startDate, Date endDate) {
 		this.id = id;
 		this.problems = new ArrayList<Problem>();
 		this.startDate = startDate;
@@ -47,7 +75,6 @@ public class Competition {
 		this.endDate = endDate;
 	}
 
-	// Debug toString implementation
 	@Override
 	public String toString() {
 		DateFormat df = new SimpleDateFormat("HH mm DD MM yyyy");
@@ -56,22 +83,10 @@ public class Competition {
 		return (start + " " + end + " " + problems.toString());
 	}
 
-	/**
-	 * Add problem to the competition
-	 * 
-	 * @param problem
-	 *            problem added to be competition
-	 */
 	public void addProblem(Problem prob) {
 		this.problems.add(prob);
 	}
 
-	/**
-	 * Remove problem from the competition
-	 * 
-	 * @param problem
-	 *            problem removed from competition??
-	 */
 	public boolean removeProblem(Problem prob) {
 		int i = 0;
 		for (Problem p : this.problems) {
@@ -83,7 +98,7 @@ public class Competition {
 		return true;
 	}
 
-	public ArrayList<Problem> getAllProblems() {
+	public List<Problem> getAllProblems() {
 		return problems;
 	}
 

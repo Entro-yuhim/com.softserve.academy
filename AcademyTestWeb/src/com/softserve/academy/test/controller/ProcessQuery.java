@@ -1,6 +1,7 @@
 package com.softserve.academy.test.controller;
 
 import com.softserve.academy.test.model.*;
+import com.softserve.academy.test.model.entity.Competition;
 
 import java.io.IOException;
 import java.sql.Connection;

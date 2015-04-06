@@ -11,6 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.softserve.academy.test.model.entity.Competition;
+import com.softserve.academy.test.model.entity.Problem;
+
 public class CompetitionDB {
 	private static CompetitionDB Instance;
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";

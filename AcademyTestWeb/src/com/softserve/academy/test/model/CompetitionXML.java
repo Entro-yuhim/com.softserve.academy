@@ -20,6 +20,9 @@ import javax.xml.stream.XMLStreamWriter;
 
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.softserve.academy.test.model.entity.Competition;
+import com.softserve.academy.test.model.entity.Problem;
+
 public class CompetitionXML extends DefaultHandler {
 
 	private static boolean startDateFlag = false;

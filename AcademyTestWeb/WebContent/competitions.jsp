@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="com.softserve.academy.test.model.*"%>
+<%@ page import="com.softserve.academy.test.model.entity.*"%>
 <%@ page import="java.text.*"%>
 <%@ page import="java.util.*"%>
 
