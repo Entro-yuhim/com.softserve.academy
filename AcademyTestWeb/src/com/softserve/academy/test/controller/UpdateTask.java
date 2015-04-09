@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.softserve.academy.test.model.CompetitionDB;
 import com.softserve.academy.test.model.entity.Problem;
+import com.softserve.academy.test.service.ProblemService;
+import com.softserve.academy.test.service.ProblemServiceImpl;
 
 /**
  * Servlet implementation class UpdateTask
  */
-@WebServlet("/UpdateTask")
+@WebServlet("/UpdateProblem")
 public class UpdateTask extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -32,6 +34,7 @@ public class UpdateTask extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
+		ProblemService ps = ProblemServiceImpl.getInstance();
 		if (action.equals("Update")) {
 			int id = Integer.parseInt(request.getParameter("taskId"));
 			String difficulty = request.getParameter("difficulty");
@@ -41,9 +44,8 @@ public class UpdateTask extends HttpServlet {
 			problem.setId(id);
 			problem.setDifficultyByName(difficulty);
 			problem.setName(name);
-			problem.setDescription(description);
-			CompetitionDB cdb = CompetitionDB.getInstance();
-			cdb.updateProblem(problem);
+			problem.setDescription(description);			
+			ps.updateProblem(problem);
 		}
 		if (action.equals("Delete from competition")) {
 			int problemId = Integer.parseInt(request.getParameter("taskId"));
@@ -51,6 +53,9 @@ public class UpdateTask extends HttpServlet {
 			
 		}
 		if (action.equals("Delete from database")) {
+			int problemId = Integer.parseInt(request.getParameter("taskId"));
+			ps.deleteProblem(problemId);
+			
 		}
 	}
 

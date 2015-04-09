@@ -20,11 +20,11 @@ public class Problem {
 	@Column(name = "problemId", unique = true, nullable = false)
 	private int id;
 	@ManyToMany(
-			fetch = FetchType.LAZY,
+			fetch = FetchType.EAGER,
 			mappedBy="problems",
 			targetEntity=Competition.class
 			)
-	private List<Problem> problems = new ArrayList<Problem>();
+	private List<Competition> competitions = new ArrayList<Competition>();
 	
 	
 	@Column(name = "difficulty", nullable = false)
@@ -136,11 +136,4 @@ public class Problem {
 
 	}
 
-	public List<Problem> getProblems() {
-		return problems;
-	}
-
-	public void setProblems(ArrayList<Problem> problems) {
-		this.problems = problems;
-	}
 }

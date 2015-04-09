@@ -11,18 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.softserve.academy.test.model.CompetitionDB;
 import com.softserve.academy.test.model.entity.Problem;
+import com.softserve.academy.test.service.ProblemService;
+import com.softserve.academy.test.service.ProblemServiceImpl;
 
 /**
  * Servlet implementation class EditTask
  */
-@WebServlet("/EditTask")
-public class EditTask extends HttpServlet {
+@WebServlet("/EditProblem")
+public class EditProblem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public EditTask() {
+	public EditProblem() {
 		super();
 	}
 
@@ -33,9 +35,8 @@ public class EditTask extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt((String) request.getParameter("taskid"));
-		
-		CompetitionDB cdb = CompetitionDB.getInstance();
-		Problem problem = cdb.readProblemById(id);
+		ProblemService ps = ProblemServiceImpl.getInstance();
+		Problem problem = ps.retrieveProblem(id);
 		request.setAttribute("response", problem);
 		RequestDispatcher rq = request.getRequestDispatcher("EditTask.jsp");
 		rq.forward(request, response);

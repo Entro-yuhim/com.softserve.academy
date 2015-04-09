@@ -121,7 +121,8 @@ public class CompetitionXML extends DefaultHandler {
 			writer.writeCharacters(df.format(c.getEndTime().getTime()));
 			writer.writeEndElement();
 			writer.writeStartElement("problems");
-			ArrayList<Problem> problems = c.getAllProblems();
+			ArrayList<Problem> problems = (ArrayList<Problem>) c
+					.getAllProblems();
 			for (Problem problem : problems) {
 				writer.writeStartElement("problem");
 				writer.writeAttribute("id",

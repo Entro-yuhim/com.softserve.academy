@@ -14,7 +14,7 @@
 	<form action ="EditComp" method="POST">
 		<%
 			DateFormat df = new SimpleDateFormat("yyyy-MM-DD HH:mm:ss");
-			ArrayList<Competition> resp = (ArrayList<Competition>) request
+			HashSet<Competition> resp = (HashSet<Competition>) request
 					.getAttribute("response");
 		%>
 		<table border="2">
@@ -24,11 +24,14 @@
 				<th>End Date</th>
 			</tr>
 			<%
-				for (Competition comp : resp) {
+			Iterator<Competition> it = resp.iterator();
+			while(it.hasNext()){
+				Competition comp = it.next();
 			%>
 
 			<tr>
 				<td><input type="radio" name="id" value="<%=comp.getId()%>"></td>
+				<td><%=comp.getId()%></td>
 				<td><%=df.format(comp.getStartTime())%></td>
 				<td><%=df.format(comp.getEndTime())%></td>
 			</tr>
@@ -37,7 +40,8 @@
 				}
 			%>
 		</table>
-		<input type = "submit" name ="Edit" value ="Edit"/>
+		<input type = "submit" name ="action" value ="Edit"/>
+		<input type="submit" name="action" value="Delete" />
 	</form>
 </body>
 </html>

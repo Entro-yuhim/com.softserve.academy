@@ -22,7 +22,7 @@
 	<%=df.format(competition.getStartTime())%>
 	<br>End Date:
 	<%=df.format(competition.getEndTime())%>
-	<form action="EditTask" method="POST">
+	<form action="EditProblem" method="POST">
 	<table>
 		
 			<%
@@ -38,9 +38,15 @@
 		<%
 			}
 		%>
-		<input type="submit" name="Edit" value="Edit task">
+		
+		
 		
 	</table>
+	<input type="submit" name="Edit" value="Edit task">
+	<input type="submit" name="Edit" value="Edit task">
+	<input type="submit" name="Edit" value="Edit task">
+	<input type="submit" name="Edit" value="Save">
+	<input type="submit" name="Edit" value="Delete">
 	</form>
 </body>
 </html>

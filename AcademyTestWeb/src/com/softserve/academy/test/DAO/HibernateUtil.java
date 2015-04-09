@@ -1,4 +1,4 @@
-package com.softserve.academy.test.model.hibernate;
+package com.softserve.academy.test.DAO;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -25,8 +25,8 @@ public class HibernateUtil {
 	public static SessionFactory getSessionFactory(){
 		return factory;
 	}
-	public static void shutDown(){
-		getSessionFactory().close();
+	public static void shutdown(){
+		factory.close();
 	}
 
 }

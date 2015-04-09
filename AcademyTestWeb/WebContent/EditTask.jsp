@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="POST" action="UpdateTask">
+	<form method="POST" action="UpdateProblem">
 		<%
 			Problem problem = (Problem) request.getAttribute("response");
 		%>

@@ -25,6 +25,7 @@
    <property name="show_sql">true</property>
    
    <mapping class="com.softserve.academy.test.model.entity.Problem"/>
-   <mapping class="com.softserve.academy.test.model.entity.Competition"/>
+   <mapping class="com.softserve.academy.test.model.entity.Competition"/>   
+   
 </session-factory>
 </hibernate-configuration>
