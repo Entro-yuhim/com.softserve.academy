@@ -18,8 +18,13 @@ http://www.springframework.org/schema/jee
 http://www.springframework.org/schema/jee/spring-jee.xsd">
 	
 	<context:annotation-config />
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      	<property name="prefix" value="/WEB-INF/views/" />
+       	<property name="suffix" value=".jsp" />
+    </bean>
+	<context:component-scan base-package="com.softserve.academy.spring.controller"/>
 	<context:component-scan base-package="com.softserve.academy.test.service"/>
     <context:component-scan base-package="com.softserve.academy.test.DAO"/>
-   	<!-- File with resources configuration for working with data (Data Access Resources)-->
+   	<!-- File with resources configuration for working with data (Data Access Resources)-->   	
 	<import resource="data.xml" />
 </beans>
